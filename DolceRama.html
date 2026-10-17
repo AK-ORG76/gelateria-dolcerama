@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DolceRama · Gelateria & Graniteria – Vanzaghello</title>
+<style>
+/* ===== EDITORIAL DARK · cioccolato fondente, crema calda, un solo accento oro ===== */
+:root{--bg:#faf8f5;--surf:#fffdfa;--surf2:#f3ece3;--ink:#2c221e;--mute:#7d6a5e;--line:rgba(44,34,30,.14);--gold:#a06f46;--gold-d:#865a35;--bad:#c0503a;--ok:#a06f46;--off:#d9cfc3;--wa:#25d366;--wa-d:#1ebe5b;
+ --serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+ color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);scroll-behavior:smooth}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;border-radius:0}
+::selection{background:var(--gold);color:#fff}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+main{padding:0 0 140px}
+.wrap{max-width:600px;margin:0 auto;padding:0 20px}
+h1,h2{margin:0;font-family:var(--serif);font-weight:400}
+button{font-family:inherit;color:inherit}
+
+/* ===== App bar fissa ===== */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(250,248,245,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.mark{font:italic 600 24px var(--serif);letter-spacing:-.01em}
+.badge{display:inline-flex;align-items:center;gap:8px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.badge:before{content:"";width:7px;height:7px;background:var(--bad)}.badge.on{color:var(--ink)}.badge.on:before{background:#3f9e5f}
+
+/* ===== Hero tipografico ===== */
+.lead{max-width:600px;margin:0 auto;padding:56px 20px 44px}
+.kicker{font:600 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 20px}
+.display{font-size:clamp(44px,13vw,76px);line-height:1;letter-spacing:-.025em;font-weight:300}
+.display em{font-style:italic;font-weight:500;color:var(--gold)}
+.lead p{max-width:380px;margin:22px 0 0;color:var(--mute);font-size:16px}
+.go{display:inline-block;margin-top:26px;padding-bottom:3px;color:var(--ink);font:600 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:2px solid var(--gold);transition:.2s}
+.go:hover{color:var(--gold)}
+
+/* ===== Sezioni: nessun box, solo linee e ritmo ===== */
+section.c{padding:36px 0 40px;border-top:1px solid var(--line)}
+section.c h2{font-size:36px;line-height:1.05;letter-spacing:-.02em}
+section.c h2 i{display:block;margin-bottom:10px;font:600 11px var(--sans);font-style:normal;letter-spacing:.2em;color:var(--gold)}
+.sub{color:var(--mute);font-size:14px;margin:10px 0 22px}
+
+/* ===== Formati: due blocchi grandi che si invertono ===== */
+#sizes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sz{padding:20px 18px 18px;text-align:left;background:var(--surf);border:1px solid var(--line);cursor:pointer;transition:background .25s,color .25s,transform .15s}
+.sz .n{display:block;font:300 54px/1 var(--serif);letter-spacing:-.03em}.sz .n small{font:500 16px var(--sans);margin-left:4px;letter-spacing:0}
+.sz .p{display:block;margin-top:12px;font-size:13px;opacity:.7}
+.sz:hover{background:var(--surf2)}.sz:active{transform:scale(.97)}
+.sz.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* ===== Gusti: griglia di tessere ===== */
+#flavors{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:520px){#flavors{grid-template-columns:repeat(3,1fr)}}
+.fl{position:relative;min-height:92px;padding:14px 14px 18px;text-align:left;background:var(--surf);border:1px solid var(--line);cursor:pointer;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;
+ transition:background .25s,color .25s,transform .15s}
+.fl:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--c);transition:height .25s ease}
+.fl .nm{font:500 19px/1.15 var(--serif);max-width:88%}
+.fl:hover:not([disabled]):after{height:8px}.fl:active:not([disabled]){transform:scale(.96)}
+.fl.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}.fl.sel:after{height:8px}
+.fl .ord{position:absolute;top:10px;right:10px;width:22px;height:22px;display:grid;place-items:center;background:var(--gold);color:#fff;font:700 12px var(--sans);font-style:normal}
+.fl .tg{margin-top:8px;font:600 10px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--bad)}
+.fl[disabled]{cursor:not-allowed}.fl[disabled]:not(.off){opacity:.4}
+.fl.off{background:repeating-linear-gradient(135deg,var(--surf) 0 8px,var(--bg) 8px 16px);color:var(--mute)}.fl.off:after{background:var(--off)}
+
+/* ===== Carrello ===== */
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.row b{font:500 18px var(--serif)}.row span{font-size:14px;color:var(--mute)}.row span b{color:var(--ink)}
+.x{width:34px;height:34px;background:none;border:1px solid var(--line);cursor:pointer;font-size:13px;transition:.2s}.x:hover{background:var(--bad);border-color:var(--bad);color:#fff}
+
+/* ===== Granite: pallino colorato + nome + selettore, allineati in riga ===== */
+.gr{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
+.gr .dt{flex:none;width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(44,34,30,.2);transition:transform .25s}
+.gr.has .dt{transform:scale(1.35)}
+.gr .nm{flex:1;min-width:0;font:500 21px var(--serif)}.gr .nm small{display:block;font:400 13px var(--sans);color:var(--mute);margin-top:2px}
+.gr.off{opacity:.55}.gr.off .dt{background:var(--off)}.gr.off small{color:var(--bad);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:10px}
+.qty{display:flex;align-items:center;gap:4px;margin-left:auto}.qty b{min-width:30px;text-align:center;font:600 17px var(--sans)}
+.qty button{width:42px;height:42px;background:var(--surf);border:1px solid var(--line);font-size:20px;line-height:1;cursor:pointer;transition:background .2s,color .2s}
+.qty button:hover{background:var(--gold);border-color:var(--gold);color:#fff}.qty button:active{transform:scale(.92)}
+
+/* ===== Modalità e orari ===== */
+#modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{padding:18px 16px;text-align:left;background:var(--surf);border:1px solid var(--line);cursor:pointer;transition:background .25s,color .25s}
+.seg b{display:block;font:500 19px var(--serif)}.seg small{font-size:12.5px;opacity:.65}
+.seg:hover{background:var(--surf2)}.seg.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#slots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.slot{padding:14px 0;background:var(--surf);border:1px solid var(--line);font:500 15px var(--sans);font-variant-numeric:tabular-nums;cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.slot:hover:not([disabled]){background:var(--surf2)}.slot:active:not([disabled]){transform:scale(.94)}
+.slot.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}.slot[disabled]{opacity:.25;cursor:not-allowed}
+
+/* ===== Form, stile app nativa ===== */
+input,textarea{width:100%;padding:18px 16px;margin:0 0 8px;background:var(--surf);border:0;border-bottom:2px solid var(--line);color:var(--ink);font:inherit;font-size:16px;transition:border-color .2s,background .2s}
+input::placeholder,textarea::placeholder{color:var(--mute)}
+input:focus,textarea:focus{outline:0;border-bottom-color:var(--gold);background:var(--surf2)}
+.pay{margin-top:16px;padding:16px;border-left:3px solid var(--gold);background:var(--surf);font-size:14px;color:var(--mute)}.pay b{color:var(--ink);font-weight:600}
+.banner{margin:0 0 8px;padding:16px;border-left:3px solid var(--bad);background:var(--surf);font-size:14px}
+.foot{text-align:center;color:var(--mute);font-size:12px;letter-spacing:.08em;padding:24px 0}
+
+/* ===== Pulsanti (admin) ===== */
+.btn{padding:15px 22px;background:var(--gold);color:#fff;border:0;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .15s}
+.btn:hover{background:var(--gold-d)}.btn:active{transform:scale(.97)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn.ghost:hover{border-color:var(--ink);background:transparent}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+
+/* ===== Barra ordine fissa (stile app delivery) ===== */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(250,248,245,0),var(--bg) 40%)}
+.bar .in{max-width:600px;margin:0 auto}
+.bar .btn{width:100%;min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px;font-size:14px;letter-spacing:.12em}
+.bar .btn .l{display:flex;align-items:center;gap:12px}.bar .btn svg{width:24px;height:24px;flex:none}
+.bar .btn .tot{font:600 15px var(--sans);letter-spacing:0;text-transform:none}
+.bar .btn{background:var(--wa);color:#fff;font-weight:800;text-shadow:0 1px 2px rgba(0,60,25,.28)}
+.bar .btn:hover{background:var(--wa-d)}.bar .btn .tot{text-shadow:none}
+.bar .btn[disabled]{background:var(--off);color:var(--mute);text-shadow:none}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== Admin ===== */
+#admin{max-width:600px;margin:0 auto;padding:0 20px}#admin h1{font-size:36px;margin:32px 0 8px!important}
+#admin .row{border-top:1px solid var(--line)}#admin .row span,#admin .row div{color:var(--ink)}
+.sw{position:relative;width:52px;height:30px;flex:none}.sw input{opacity:0;width:0;height:0;margin:0;padding:0}
+.sw span{position:absolute;inset:0;background:var(--off);transition:.2s;cursor:pointer}
+.sw span:before{content:"";position:absolute;left:3px;top:3px;width:24px;height:24px;background:#fff;transition:.2s}
+.sw input:checked+span{background:var(--gold)}.sw input:checked+span:before{transform:translateX(22px)}
+.small{font-size:13px;color:var(--mute)}a.lnk{color:var(--gold);font-weight:600;text-underline-offset:4px}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Stato condiviso: viene riscritto da ogni "publish" dell'admin. Contiene gusti, granite e aperto/chiuso. -->
+<script type="application/json" id="state">{"ts":0,"open":true,
+"flavors":[{"n":"Nocciola","off":false},{"n":"Pistacchio","off":false},{"n":"Cioccolato fondente","off":false},{"n":"Fior di latte","off":false},{"n":"Stracciatella","off":false},{"n":"Crema","off":false},{"n":"Bacio","off":false},{"n":"Zuppa inglese","off":false},{"n":"Limone","off":false},{"n":"Fragola","off":false},{"n":"Menta","off":false},{"n":"Caffè","off":false}],
+"granite":[{"n":"Limone","off":false},{"n":"Mandorla","off":false},{"n":"Gelso","off":false},{"n":"Caffè con panna","off":false}]}</script>
+
+<main>
+  <!-- ================= VISTA CLIENTE ================= -->
+  <div id="cust">
+    <header class="top">
+      <span class="mark">DolceRama</span>
+      <span class="badge" id="status" data-dyn></span>
+    </header>
+
+    <div class="lead">
+      <p class="kicker">Gelateria artigianale · Graniteria siciliana</p>
+      <h1 class="display">Gelato fatto <em>a mano.</em> Granita come in&nbsp;Sicilia.</h1>
+      <p>Prenota la tua vaschetta: la trovi pronta in negozio a Vanzaghello, o te la portiamo a casa.</p>
+      <a class="go" href="#ordina">Inizia l'ordine ↓</a>
+    </div>
+
+    <div class="wrap" id="ordina">
+      <div id="closedBanner" data-dyn></div>
+
+      <section class="c"><h2><i>01</i>Le vaschette</h2><p class="sub">Scegli il formato, poi tocca i gusti nell'ordine che preferisci.</p>
+        <div id="sizes" data-dyn></div>
+        <p class="sub" id="flHint" style="margin:26px 0 12px"></p>
+        <div id="flavors" data-dyn></div>
+        <p style="margin:18px 0 0"><button class="btn ghost" id="addTub">+ Aggiungi vaschetta</button></p>
+        <div id="tubs" data-dyn style="margin-top:18px"></div>
+      </section>
+
+      <section class="c"><h2><i>02</i>Le granite</h2><p class="sub">Preparate ogni giorno. Quelle finite sono segnate.</p><div id="granite" data-dyn></div></section>
+
+      <section class="c"><h2><i>03</i>Ritiro o consegna</h2><p class="sub">Come preferisci riceverlo?</p>
+        <div id="modes" data-dyn></div>
+        <div id="addrBox" hidden style="margin-top:8px"><input id="addr" placeholder="Indirizzo di consegna (via, n°, citofono)"></div>
+        <p class="sub" style="margin:28px 0 12px">Orario</p><div id="slots" data-dyn></div>
+      </section>
+
+      <section class="c"><h2><i>04</i>I tuoi dati</h2><p class="sub">Per sapere a chi intestare l'ordine.</p>
+        <input id="name" placeholder="Nome e cognome" autocomplete="name">
+        <input id="phone" placeholder="Telefono" type="tel" autocomplete="tel">
+        <textarea id="note" rows="2" placeholder="Note (allergie, candeline…)"></textarea>
+        <div class="pay"><b>Pagamento alla consegna / ritiro</b> in contanti o POS.</div>
+      </section>
+      <p class="foot">DOLCERAMA · VANZAGHELLO (MI) · <a class="lnk" href="#/admin">Area gestore</a></p>
+    </div>
+  </div>
+
+  <div class="bar" id="bar"><div class="in">
+    <button class="btn" id="send"><span class="l"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 3C9.1 3 3.47 8.6 3.47 15.5c0 2.2.58 4.35 1.68 6.24L3 29l7.45-1.95a12.6 12.6 0 0 0 5.59 1.3c6.94 0 12.57-5.6 12.57-12.5S22.98 3 16.04 3zm0 22.9c-1.8 0-3.56-.48-5.1-1.4l-.37-.22-4.42 1.16 1.18-4.3-.24-.4a10.3 10.3 0 0 1-1.6-5.5c0-5.7 4.66-10.3 10.55-10.3 5.7 0 10.55 4.6 10.55 10.3S21.9 25.9 16.04 25.9zm5.8-7.7c-.32-.16-1.88-.92-2.17-1.02-.3-.1-.5-.16-.72.16s-.83 1.02-1 1.23c-.2.2-.37.24-.7.08a8.4 8.4 0 0 1-2.5-1.52 9.3 9.3 0 0 1-1.73-2.13c-.18-.32 0-.5.14-.66.15-.14.32-.37.48-.56.16-.18.2-.32.3-.52.1-.2.05-.4-.03-.56-.08-.16-.72-1.72-.98-2.35-.26-.62-.52-.54-.72-.55h-.6c-.2 0-.55.08-.84.4-.3.3-1.1 1.07-1.1 2.6s1.13 3.02 1.28 3.23c.16.2 2.2 3.35 5.33 4.7.74.32 1.32.5 1.78.65.75.24 1.43.2 1.97.12.6-.1 1.88-.77 2.14-1.5.27-.74.27-1.37.19-1.5-.08-.14-.3-.22-.62-.38z"/></svg>Ordina su WhatsApp</span><span class="tot" id="tot" data-dyn></span></button>
+  </div></div>
+
+  <!-- ================= VISTA ADMIN (#/admin) ================= -->
+  <div id="admin" data-dyn hidden></div>
+</main>
+
+
+<script>
+/* ===================== CONFIGURAZIONE (modifica qui) ===================== */
+const CONFIG = {
+  tel: "393474940223",                 // +39 347 494 0223 (formato wa.me, senza + né spazi)
+  pin: "1234",                         // PIN admin (protezione leggera lato browser, vedi note)
+  sizes: [ {id:"500", label:"500 g", max:3, price:7}, {id:"1000", label:"1 kg", max:4, price:13} ], // prezzi di esempio
+  granitaPrice: 3.5,
+  slots: {from:"15:00", to:"22:00", step:30}   // fasce orarie prestabilite
+};
+
+/* ===================== STATO CONDIVISO ===================== */
+const $ = s => document.querySelector(s);
+const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur = n => "€" + n.toFixed(2).replace(".", ",");
+let S = JSON.parse($("#state").textContent);
+// Test in locale: se non si può pubblicare, l'admin salva su localStorage (più recente = vince)
+try { const l = JSON.parse(localStorage.getItem("dr_state")||"null"); if (l && l.ts > S.ts) S = l; } catch(e){}
+
+let pubTimer;
+/* Salva: pubblica una nuova versione della pagina con lo stato incorporato -> tutti i clienti la vedono. */
+function persist(){
+  S.ts = Date.now();
+  try { localStorage.setItem("dr_state", JSON.stringify(S)); } catch(e){}
+  clearTimeout(pubTimer);
+  pubTimer = setTimeout(async () => {          // debounce: raggruppa più interruttori in un solo publish
+    try {
+      const art = window.claude && await claude.use("artifact");
+      if (!art) return setMsg("Modifica salvata solo su questo dispositivo (pubblicazione non disponibile).");
+      const c = document.documentElement.cloneNode(true);       // copia pulita della pagina
+      c.querySelector("#state").textContent = JSON.stringify(S).replace(/</g,"\\u003c");
+      c.querySelectorAll("[data-dyn]").forEach(e => e.innerHTML = "");  // la UI viene ricostruita al caricamento
+      setMsg("Pubblicazione…");
+      await art.publish("<!DOCTYPE html>\n" + c.outerHTML);     // la pagina si ricarica con il nuovo stato
+    } catch(e){ setMsg("Pubblicazione non riuscita: " + (e.code||e.message||e)); }
+  }, 1200);
+}
+function setMsg(t){ const m=$("#pubMsg"); if(m) m.textContent=t; }
+
+/* ===================== VISTA CLIENTE ===================== */
+// colore identificativo per gusto/granita (barra di colore nelle tessere)
+const COL = {"Nocciola":"#a9744f","Pistacchio":"#a8c47a","Cioccolato fondente":"#5a3526","Fior di latte":"#e4d6b8","Stracciatella":"#cbb892","Crema":"#ecc765","Bacio":"#7a5040","Zuppa inglese":"#d9a05b","Limone":"#f0d63a","Fragola":"#e8566b","Menta":"#8fd1b0","Caffè":"#8a6048","Mandorla":"#d6c093","Gelso":"#7a2e66","Caffè con panna":"#9a7258"};
+const O = { size:null, draft:[], tubs:[], gran:{}, mode:"ritiro", slot:null };
+const free = a => a.filter(x => !x.off);
+
+function nowSlots(){                                   // genera le fasce, escludendo quelle già passate oggi
+  const [h1,m1] = CONFIG.slots.from.split(":").map(Number), [h2,m2] = CONFIG.slots.to.split(":").map(Number);
+  const d = new Date(), cur = d.getHours()*60 + d.getMinutes() + 15, out = [];
+  for (let t=h1*60+m1; t<=h2*60+m2; t+=CONFIG.slots.step) out.push({l:String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0"), past:t<cur});
+  return out;
+}
+const chip = (txt, cls, attrs) => `<button class="slot ${cls||""}" ${attrs||""}>${esc(txt)}</button>`;
+
+function renderAll(){
+  $("#status").className = "badge " + (S.open ? "on" : "off"); $("#status").textContent = S.open ? "Aperto" : "Chiuso";
+  $("#closedBanner").innerHTML = S.open ? "" : `<div class="banner">Al momento le prenotazioni sono sospese. Riprova più tardi.</div>`;
+  const sz = CONFIG.sizes.find(s => s.id === O.size);
+  $("#sizes").innerHTML = CONFIG.sizes.map(s => { const [n,u] = s.label.split(" ");
+    return `<button class="sz ${s.id===O.size?"sel":""}" data-size="${s.id}"><span class="n">${n}<small>${u}</small></span><span class="p">${eur(s.price)} · fino a ${s.max} gusti</span></button>`; }).join("");
+  $("#flHint").textContent = sz ? `Scegli fino a ${sz.max} gusti (${O.draft.length}/${sz.max})` : "Prima scegli il formato";
+  // gusti: i "esauriti" restano visibili ma disattivati; se l'admin li spegne mentre sono selezionati vengono tolti
+  O.draft = O.draft.filter(n => S.flavors.some(f => f.n===n && !f.off));
+  $("#flavors").innerHTML = S.flavors.map(f => { const i = O.draft.indexOf(f.n);
+    return `<button class="fl ${i>-1?"sel":""} ${f.off?"off":""}" style="--c:${COL[f.n]||"#e8b04a"}" data-fl="${esc(f.n)}" ${f.off||!sz?"disabled":""}><span class="nm">${esc(f.n)}</span>${f.off?`<span class="tg">Esaurito</span>`:""}${i>-1?`<em class="ord">${i+1}</em>`:""}</button>`; }).join("");
+  $("#tubs").innerHTML = O.tubs.map((t,i) => `<div class="row"><span><b>${t.label}</b> · ${esc(t.flavors.join(", "))}</span><button class="x" data-rm="${i}" aria-label="Rimuovi">✕</button></div>`).join("");
+  $("#granite").innerHTML = S.granite.map(g => { const q = O.gran[g.n]||0;
+    return `<div class="gr ${g.off?"off":""} ${q?"has":""}" style="--c:${COL[g.n]||"#e8b04a"}"><i class="dt"></i><span class="nm">${esc(g.n)}<small>${g.off?"Esaurita":eur(CONFIG.granitaPrice)}</small></span>${g.off?"":`<span class="qty"><button data-g="${esc(g.n)}" data-d="-1" aria-label="Meno">−</button><b>${q}</b><button data-g="${esc(g.n)}" data-d="1" aria-label="Più">+</button></span>`}</div>`; }).join("");
+  $("#modes").innerHTML = [["ritiro","Ritiro","In negozio"],["consegna","Consegna","A domicilio"]].map(([k,t,d]) => `<button class="seg ${O.mode===k?"sel":""}" data-mode="${k}"><b>${t}</b><small>${d}</small></button>`).join("");
+  $("#addrBox").hidden = O.mode !== "consegna";
+  $("#slots").innerHTML = nowSlots().map(s => chip(s.l, O.slot===s.l?"sel":"", `data-slot="${s.l}" ${s.past?"disabled":""}`)).join("");
+  const t = total(); const n = O.tubs.length + Object.values(O.gran).reduce((a,q)=>a+q,0); $("#tot").textContent = n ? `${n} ${n>1?"articoli":"articolo"} · ${eur(t)}` : "";
+  $("#send").disabled = !S.open;
+}
+function total(){
+  let t = O.tubs.reduce((a,x) => a + x.price, 0);
+  Object.values(O.gran).forEach(q => t += q * CONFIG.granitaPrice);
+  return t;
+}
+
+function bindCustomer(){
+  $("#cust").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const d = b.dataset;
+    if (d.size){ O.size = d.size; O.draft = []; }
+    else if (d.fl){ const s = CONFIG.sizes.find(x=>x.id===O.size);
+      if (O.draft.includes(d.fl)) O.draft = O.draft.filter(n=>n!==d.fl);
+      else if (O.draft.length < s.max) O.draft.push(d.fl); }
+    else if (b.id==="addTub"){ const s = CONFIG.sizes.find(x=>x.id===O.size);
+      if (!s || !O.draft.length) return alert("Scegli formato e almeno un gusto.");
+      O.tubs.push({label:s.label, price:s.price, flavors:[...O.draft]}); O.draft = []; }
+    else if (d.rm) O.tubs.splice(+d.rm,1);
+    else if (d.g){ O.gran[d.g] = Math.max(0,(O.gran[d.g]||0) + +d.d); }
+    else if (d.mode) O.mode = d.mode;
+    else if (d.slot) O.slot = d.slot;
+    renderAll();
+  });
+  $("#send").addEventListener("click", sendWhatsApp);
+}
+
+/* Compone il messaggio formattato e apre WhatsApp col numero della gelateria */
+function sendWhatsApp(){
+  if (!S.open) return alert("Il negozio è chiuso: prenotazioni sospese.");
+  const name = $("#name").value.trim(), phone = $("#phone").value.trim(), addr = $("#addr").value.trim();
+  const gr = Object.entries(O.gran).filter(([,q]) => q>0);
+  if (!O.tubs.length && !gr.length) return alert("Aggiungi almeno una vaschetta o una granita.");
+  if (!O.slot) return alert("Scegli un orario.");
+  if (!name || !phone) return alert("Inserisci nome e telefono.");
+  if (O.mode==="consegna" && !addr) return alert("Inserisci l'indirizzo di consegna.");
+  const L = ["*🍨 NUOVO ORDINE – DolceRama*", ""];
+  if (O.tubs.length){ L.push("*Vaschette*"); O.tubs.forEach((t,i)=>L.push(`${i+1}) ${t.label}: ${t.flavors.join(", ")}`)); L.push(""); }
+  if (gr.length){ L.push("*Granite*"); gr.forEach(([n,q])=>L.push(`• ${q}× ${n}`)); L.push(""); }
+  L.push(`*Modalità:* ${O.mode==="ritiro"?"Ritiro in negozio":"Consegna a domicilio"}`);
+  if (O.mode==="consegna") L.push(`*Indirizzo:* ${addr}`);
+  L.push(`*Orario:* ${O.slot}`, `*Totale indicativo:* ${eur(total())}`, "*Pagamento:* alla consegna / ritiro (contanti o POS)", "",
+         `*Cliente:* ${name}`, `*Tel:* ${phone}`);
+  if ($("#note").value.trim()) L.push(`*Note:* ${$("#note").value.trim()}`);
+  window.open(`https://wa.me/${CONFIG.tel}?text=${encodeURIComponent(L.join("\n"))}`, "_blank");
+}
+
+/* ===================== VISTA ADMIN ===================== */
+let authed = false;
+try { authed = sessionStorage.getItem("dr_auth") === "1"; } catch(e){}
+
+function renderAdmin(){
+  const A = $("#admin");
+  if (!authed){
+    A.innerHTML = `<section class="c" style="margin-top:40px"><h2>Area gestore</h2><p class="sub">Inserisci il PIN.</p>
+      <input id="pin" type="password" inputmode="numeric" placeholder="PIN"><p><button class="btn" id="login">Entra</button></p>
+      <p class="small"><a class="lnk" href="#/">← Torna alla vista cliente</a></p></section>`;
+    $("#login").onclick = () => { if ($("#pin").value === CONFIG.pin){ authed = true; try{sessionStorage.setItem("dr_auth","1")}catch(e){} renderAdmin(); } else alert("PIN errato"); };
+    return;
+  }
+  const sw = (id, on) => `<label class="sw"><input type="checkbox" ${on?"checked":""} data-sw="${id}"><span></span></label>`;
+  A.innerHTML = `<h1 style="margin:24px 0 12px">Pannello DolceRama</h1>
+    <section class="c"><div class="row"><div><b>${S.open?"Negozio aperto":"Negozio chiuso"}</b><div class="small">Se chiuso, i clienti non possono inviare ordini.</div></div>${sw("open", S.open)}</div></section>
+    <section class="c"><h2>Gusti gelato</h2><p class="sub">ON = disponibile · OFF = esaurito</p>
+      ${S.flavors.map((f,i)=>`<div class="row"><span>${esc(f.n)}</span>${sw("f"+i, !f.off)}</div>`).join("")}</section>
+    <section class="c"><h2>Granite</h2>${S.granite.map((g,i)=>`<div class="row"><span>${esc(g.n)}</span>${sw("g"+i, !g.off)}</div>`).join("")}</section>
+    <p class="small" id="pubMsg"></p>
+    <p><button class="btn ghost" id="logout">Esci</button> <a class="lnk" href="#/" style="margin-left:12px">Vista cliente</a></p>`;
+  A.onchange = e => {
+    const id = e.target.dataset.sw; if (!id) return;
+    if (id==="open") S.open = e.target.checked;
+    else (id[0]==="f" ? S.flavors : S.granite)[+id.slice(1)].off = !e.target.checked;
+    persist();
+    if (id==="open") { A.querySelector("b").textContent = S.open?"Negozio aperto":"Negozio chiuso"; }
+  };
+  $("#logout").onclick = () => { authed=false; try{sessionStorage.removeItem("dr_auth")}catch(e){} renderAdmin(); };
+}
+
+/* ===================== ROUTER (#/ cliente, #/admin gestore) ===================== */
+function route(){
+  const isAdmin = location.hash.replace(/\/$/,"") === "#/admin";
+  $("#cust").hidden = isAdmin; $("#bar").hidden = isAdmin; $("#admin").hidden = !isAdmin;
+  isAdmin ? renderAdmin() : renderAll();
+}
+bindCustomer();
+addEventListener("hashchange", route);
+route();
+setInterval(() => { if ($("#admin").hidden && $("#slots")) $("#slots").innerHTML = nowSlots().map(s => chip(s.l, O.slot===s.l?"sel":"", `data-slot="${s.l}" ${s.past?"disabled":""}`)).join(""); }, 60000);
+</script>
+</body>
+</html>
